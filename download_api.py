@@ -59,14 +59,16 @@ def court_sort_key_from_case(case):
 # containing a single blank string)
 # ============================================================
 def normalize_field(value):
-    """Turn a string / list / None field into a clean string."""
     if value is None:
         return ""
+
     if isinstance(value, list):
-        parts = [str(v).strip() for v in value if str(v).strip()]
-        return ",".join(parts)
-    if isinstance(value, str):
-        return value.strip()
+        return ",".join(
+            str(v).strip()
+            for v in value
+            if str(v).strip()
+        ) + ("," if value else "")
+
     return str(value).strip()
 
 
