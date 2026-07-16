@@ -1,0 +1,581 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <title>Madras High Court - Cause List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./assets/css/semantic.min.css">
+    <link rel="stylesheet" href="./assets/css/bootstrap.css">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link href="./assets/plugins/accessibility-buttons/css/accessibility-buttons.css" rel="stylesheet">
+	<link href="./assets/css/font-awesome.min.css" rel="stylesheet">
+    <script src="./assets/js/jquery-3.3.1.js"></script>
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/bootstrap.js"></script>
+
+</head>
+
+<body>
+    <section class="min-height">
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Causelist</title>
+    <link rel="stylesheet" type="text/css" href="../assets/plugins/DataTables/datatables.css">
+    <style>
+        html {
+            background-color: #f1f3f6;
+            background-size: 100px 100px;
+            background-position: 0 0;
+        }
+
+        body {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #FFF;
+			width:fit-content;
+        }
+
+
+        table.dataTable>tbody>tr.child span.dtr-title {
+            display: block;
+            color: red;
+        }
+
+        mark {
+            background: orange;
+            color: black;
+        }
+
+        premark {
+            background: lightgreen;
+            color: black;
+        }
+
+        button.dt-button {
+            color: #FFF;
+            border-color: #3b5998;
+            background: #488c48cc;
+            -webkit-transition: all 0.5s ease-in-out;
+            -moz-transition: all 0.5s ease-in-out;
+            -o-transition: all 0.5s ease-in-out;
+            transition: all 0.5s ease-in-out;
+        }
+
+        td {
+            vertical-align: baseline;
+        }
+
+        tr.dtrg-group.dtrg-start.dtrg-level-0>td {
+            text-align: center;
+            color: rgb(230, 23, 23);
+        }
+
+        tr.dtrg-group.dtrg-start.dtrg-level-1>td {
+            text-align: center;
+            color: rgb(230, 23, 23);
+        }
+
+        tr.dtrg-group.dtrg-start.dtrg-level-2>td {
+            text-align: center;
+            color: rgb(230, 23, 23);
+        }
+
+        tr.dtrg-group.dtrg-start.dtrg-level-3>td {
+            text-align: center;
+            color: rgb(230, 23, 23);
+        }
+
+        tr.dtrg-group.dtrg-start.dtrg-level-4>td {
+            text-align: center;
+            color: rgb(230, 23, 23);
+        }
+
+        tr.dtrg-group.dtrg-start.dtrg-level-5>td {
+            text-align: center;
+            color: rgb(230, 23, 23);
+        }
+
+        table.dataTable tr.dtrg-group td {
+            background-color: #FFF;
+            border: 1px solid #FFF;
+        }
+
+        .loader {
+            border: 6px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 6px solid #3498db;
+            width: 40px;
+            height: 40px;
+            top: 30%;
+            left: 50%;
+            position: absolute;
+            -webkit-animation: spin 0.5s linear infinite;
+            /* Safari */
+            animation: spin 0.5s linear infinite;
+        }
+
+        /* Safari */
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loader-box {
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #FFF;
+        }
+		.court{
+			font-size:18px;
+			font-weight:bold;			
+		}
+		.head_judge{
+			font-size:16px;
+			font-weight:bold;
+		}
+		.court_heading
+		{
+			background-color:#8FBC8F !important ;
+		}		
+		.stagename
+		{
+			/* background-color:#8fbc8fba !important; */
+		}
+		.stagename_heading{
+			font-size:16px;
+			font-weight:bold;
+			color:red;
+			
+		}
+		
+		@media print
+		{
+			#nonprintableArea { display: none; }
+			#printableArea { display: block; 
+			
+			}
+		}
+		
+		
+	
+    </style>
+	<script>
+		function printDiv(divName) {
+			 var printContents = document.getElementById(divName).innerHTML;
+			 var originalContents = document.body.innerHTML;
+
+			 document.body.innerHTML = printContents;
+
+			 window.print();
+
+			 document.body.innerHTML = originalContents;
+		}
+	</script>
+
+
+
+    <div id="loading" class="" style="display: none;">
+        <div class="loader"></div>
+    </div>
+    <div class="container-fluid" id="printableArea">
+        <img src="../assets/images/indian-emblem.png" class="img-responsive" style="margin-left:45%;position: relative;" alt="">
+        
+		<h2 style="text-align: center; color:#555; margin-bottom:0;">HIGH COURT OF MADRAS</h2>
+        <h2 style="text-align: center; color:#555; margin-top:0;">Cause List - Saturday 20th Dec, 2025</h2>
+        <br>
+        <div class="row">
+            <div class="col">
+				<div class="dt-buttons" id="nonprintableArea">
+					<button class="dt-button buttons-print" tabindex="0" aria-controls="example" type="button" onclick="printDiv('printableArea')">
+						<span>Print</span>
+					</button>					
+				</div>
+				<div id="example_wrapper" class="dataTables_wrapper no-footer"><table id="example" class="display dataTable no-footer dtr-inline" width="100%" role="grid" style="width: 100%;">
+                    <thead>
+                        <tr role="row"><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 51px;">Sr.No.</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 68px;">Case No.</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 43px;">Party</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 169px;">Petitioner Advocates</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 169px;">Respondent Advocates</th></tr>
+                    </thead>
+					<tbody id="tbl"></tbody>
+                </table></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../assets/plugins/DataTables/jQuery-3.3.1/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../assets/plugins/DataTables/datatables.js"></script>
+    <script type="text/javascript" src="../assets/plugins/lodash/lodash.min.js"></script>
+    <script type="text/javascript" src="../assets/plugins/axios/axios.min.js"></script>
+    <script type="text/javascript" src="../assets/plugins/markjs/mark.js"></script>
+    <script type="text/javascript" src="../assets/plugins/markjs/datatables.mark.js"></script>
+	
+	<script>
+        $(document).ready(function() {
+			 $('#example').DataTable({
+				"responsive":true,
+				"aaSorting": [],
+				"paging":   false,
+				"ordering": false,
+				"info":     false,
+				"responsive": true,
+				"mark": true,
+				"searching": false
+									
+			});
+            axios.get('../api/result.php?file=cause_20122025.xml').then(function(response) {
+               
+				arr = JSON.parse(JSON.stringify(response.data).replace(/â/g, "-").replace(/â€“/g, "-").replace(/@/g, "")); //convert to javascript array
+                var final = [];
+				$.each(arr, function(key, value) {
+					final.push(value);
+				});
+				var sortObj = _.sortBy(final, [function(o) {
+					return _.toNumber(o.courtno);
+				}]);
+
+				function isEmpty(arg) {
+					return (
+						arg == null || // Check for null or undefined
+						arg.length === 0 || // Check for empty String (Bonus check for empty Array)
+						(typeof arg === 'object' && Object.keys(arg).length === 0) // Check for empty Object or Array
+					);
+				}
+				
+				function ToupperCase(x){
+					if(!isEmpty(x)){
+						var x = x.toString().toUpperCase();
+						return x;
+					} else {
+						 x='';
+						return x;
+					}
+				}
+					
+                var filtertype = '2';
+                var filter_value = '';
+				
+				if (!isEmpty(filtertype) && !isEmpty(filter_value)) {
+					switch (filtertype) {						
+						case '1':
+							sortObj = _.filter(sortObj, function(o) {
+								return o.courtno == filter_value;
+							});
+							break;
+						case '2':
+							filter_tag = '<mark>'+filter_value.toUpperCase()+'</mark>';	
+							sortObj = _.filter(sortObj, function(o) {									
+								
+								var ext_padvname = '';
+								var ext_radvname = '';
+								if(Array.isArray(o.extra) && o.extra.length){
+									for (var i = 0; i < o.extra.length; i++) {
+										ext_padvname += o.extra[i].expadv + ",";
+									}										
+								}else if(o.extra.excasetype!=''){
+									
+									ext_padvname += o.extra.expadv + ",";
+								
+								}
+								if(Array.isArray(o.extra) && o.extra.length){
+									for (var i = 0; i < o.extra.length; i++) {
+										ext_radvname += o.extra[i].exradv + ",";
+									}										
+								}else if(o.extra.excasetype!=''){
+									
+									ext_radvname += o.extra.exradv + ",";
+								
+								}
+								
+								return ToupperCase(o.mpadv).indexOf(filter_value.toUpperCase()) !== -1 || ToupperCase(o.mradv).indexOf(filter_value.toUpperCase()) !== -1 || ToupperCase(ext_padvname).indexOf(filter_value.toUpperCase()) !== -1 || ToupperCase(ext_radvname).indexOf(filter_value.toUpperCase()) !== -1;
+								
+							});
+							
+							sortObj = _.replace(JSON.stringify(sortObj), new RegExp(filter_value.toUpperCase(), 'g'), filter_tag);
+							sortObj = JSON.parse(sortObj);
+							break;
+							
+						case '3':
+							sortObj = _.forEach(sortObj, function(o) {
+								_.has(o, 'judge2') == false ? _.set(o, 'judge2', '') : ""
+							});
+							sortObj = _.forEach(sortObj, function(o) {
+								_.has(o, 'judge3') == false ? _.set(o, 'judge3', '') : ""
+							});
+							sortObj = _.forEach(sortObj, function(o) {
+								_.has(o, 'judge4') == false ? _.set(o, 'judge4', '') : ""
+							});
+							sortObj = _.forEach(sortObj, function(o) {
+								_.has(o, 'judge5') == false ? _.set(o, 'judge5', '') : ""
+							});
+							sortObj = _.filter(sortObj, function(o) {
+								return o.judge1.indexOf(filter_value) !== -1 || o.judge2.indexOf(filter_value) !== -1 || o.judge3.indexOf(filter_value) !== -1 || o.judge4.indexOf(filter_value) !== -1 || o.judge5.indexOf(filter_value) !== -1;
+							});
+							break;
+							
+						case '4':
+							const casno = filter_value.split("/");
+							casetype = '<mark>'+casno[0].toUpperCase()+'</mark>';	
+							caseno = '<mark>'+casno[1].toUpperCase()+'</mark>';	
+							caseyr = '<mark>'+casno[2].toUpperCase()+'</mark>';	
+							
+							sortObj = _.filter(sortObj, function(o) {
+								var ext_casetype = '';
+								if(Array.isArray(o.extra) && o.extra.length){									
+									for (var i = 0; i < o.extra.length; i++) {
+										ext_casetype += o.extra[i].excasetype + ",";
+									}
+								}else if(o.extra.excasetype!=''){									
+									ext_casetype += o.extra.excasetype;
+								}
+								return o.mcasetype.indexOf(casno[0].toUpperCase()) !== -1 || ext_casetype.indexOf(casno[0].toUpperCase()) !== -1;
+							});							
+							
+							sortObj = _.filter(sortObj, function(o) {								
+								var ext_caseno = '';
+								if(Array.isArray(o.extra) && o.extra.length){									
+									for (var i = 0; i < o.extra.length; i++) {
+										ext_caseno += o.extra[i].excaseno + ",";
+									}
+								}else if(o.extra.excaseno!=''){									
+									ext_caseno += o.extra.excaseno;
+								}
+								
+								return o.mcaseno.indexOf(casno[1].toUpperCase()) !== -1 || ext_caseno.indexOf(casno[1].toUpperCase()) !== -1;
+							});
+							
+							sortObj = _.filter(sortObj, function(o) {
+								
+								var ext_caseyear = '';
+								if(Array.isArray(o.extra) && o.extra.length){									
+									for (var i = 0; i < o.extra.length; i++) {
+										ext_caseyear += o.extra[i].excaseyr + ",";
+									}
+								}else if(o.extra.excaseyr!=''){									
+									ext_caseyear += o.extra.excaseyr;
+								}
+								return o.mcaseyr.indexOf(casno[2].toUpperCase()) !== -1 || ext_caseyear.indexOf(casno[2].toUpperCase()) !== -1;
+							
+							});
+							
+							sortObj = _.replace(JSON.stringify(sortObj), new RegExp(casetype[0].toUpperCase(), 'g'), casetype);
+							sortObj = _.replace(sortObj, new RegExp(casno[1], 'g'), caseno);
+							sortObj = _.replace(sortObj, new RegExp(casno[2], 'g'), caseyr);
+							
+							sortObj = JSON.parse(sortObj);
+							break;
+							
+						case '5':
+							filter_tag = '<mark>'+filter_value.toUpperCase()+'</mark>';
+							sortObj = _.filter(sortObj, function(o) {
+								
+								var ext_rname = '';
+								var ext_pname = '';
+								if(Array.isArray(o.extra) && o.extra.length){									
+									for (var i = 0; i < o.extra.length; i++) {
+										ext_pname += o.extra[i].expname + ",";
+									}
+								}else if(o.extra.excasetype!=''){									
+									ext_pname += o.extra.expname + ",";
+								}
+								
+								if(Array.isArray(o.extra) && o.extra.length){
+									for (var i = 0; i < o.extra.length; i++) {
+										ext_rname += o.extra[i].exrname + ",";
+									}										
+								}else if(o.extra.excasetype!=''){									
+									ext_rname += o.extra.exrname + ",";								
+								}
+								
+								return ToupperCase(o.pname).indexOf(ToupperCase(filter_value)) !== -1 || ToupperCase(o.rname).indexOf(ToupperCase(filter_value)) !== -1 || ToupperCase(ext_pname).indexOf(ToupperCase(filter_value)) !== -1 || ToupperCase(ext_rname).indexOf(ToupperCase(filter_value)) !== -1;
+							
+							});
+							sortObj = _.replace(JSON.stringify(sortObj), new RegExp(filter_value, 'g'), filter_tag);
+							sortObj = JSON.parse(sortObj);
+							break;
+						default:
+							sortObj;
+					}
+                }
+				
+								
+                $("#loading").removeClass("loader-box");
+                $("#loading").hide();					
+				var row = '';
+				var extra_row = '';
+				if(Array.isArray(sortObj) && sortObj.length!=0){
+					var new_coram ="";
+					var last_coram ="";
+					var new_stagename="";
+					var last_stagename="";
+					//var header_flag=false;
+					for (var i = 0; i < sortObj.length; i++) {
+						
+						if('judge1' in sortObj[i]){
+							judge1 = sortObj[i].judge1;
+						}else{
+							judge1 ="";
+						}
+						
+						if('judge2' in sortObj[i]){
+							judge2 = sortObj[i].judge2;
+						}else{
+							judge2 ="";
+						}
+						
+						if('judge3' in sortObj[i]){
+							judge3 = sortObj[i].judge3;
+						}else{
+							judge3 ="";
+						}
+						
+						if('judge4' in sortObj[i]){
+							judge4 = sortObj[i].judge4;
+						}else{
+							judge4 ="";
+						}
+						
+						if('judge5' in sortObj[i]){
+							judge5 = sortObj[i].judge5;
+						}else{
+							judge5 ="";
+						}
+							
+						new_coram = judge1 +','+judge2 +','+judge3 +','+judge4 +','+judge5;
+						new_stagename = sortObj[i].stagename;
+						if(new_coram != last_coram){
+							row += '<tr class="court_heading">'+
+								'<td colspan="5" style="text-align:center;"><span class="court">'+ sortObj[i].courtno +'</span><br/><span class="head_judge">';
+								if('judge1' in sortObj[i]){
+									row += '<br/>'+ sortObj[i].judge1;
+								}
+								if('judge2' in sortObj[i]){
+									row += '<br/>'+ sortObj[i].judge2;
+								}
+								if('judge3' in sortObj[i]){
+									row += '<br/>'+ sortObj[i].judge3;
+								}
+								if('judge4' in sortObj[i]){
+									row += '<br/>'+ sortObj[i].judge4;
+								}
+								if('judge5' in sortObj[i]){
+									row += '<br/>'+ sortObj[i].judge5;
+								}
+								row +='</span>';
+								if('courtremarks' in sortObj[i]){
+									row += '<br/><br/><span style="font-size:12px;">'+ sortObj[i].courtremarks;
+								}								
+							row +='</span></td></tr>';
+							last_coram = new_coram;
+							//header_flag=true;
+						}
+						
+						if(new_stagename != last_stagename){
+							
+							row += '<tr class="stagename">'+
+								'<td colspan="5" style="text-align:center;">'+
+								'<span class="stagename_heading">'+ sortObj[i].stagename +'</span>'+
+								'</td></tr>';								
+							
+							last_stagename = new_stagename;
+						}
+						///
+						/* if(new_coram == last_coram && header_flag==false){
+							row += '<tr class="court_heading">'+
+								'<td colspan="5" style="text-align:center;"><span class="court">'+ sortObj[i].courtno +'</span><br/><span class="head_judge">';
+								if('judge1' in sortObj[i]){
+									row += '<br/>'+ sortObj[i].judge1;
+								}
+								if('judge2' in sortObj[i]){
+									row += '<br/>'+ sortObj[i].judge2;
+								}
+								if('judge3' in sortObj[i]){
+									row += '<br/>'+ sortObj[i].judge3;
+								}
+								if('judge4' in sortObj[i]){
+									row += '<br/>'+ sortObj[i].judge4;
+								}
+								if('judge5' in sortObj[i]){
+									row += '<br/>'+ sortObj[i].judge5;
+								}
+								row +='</span>';
+								if('courtremarks' in sortObj[i]){
+									row += '<br/><br/><span style="font-size:12px;">'+ sortObj[i].courtremarks;
+								}								
+							row +='</span></td></tr>';
+							last_coram = new_coram;
+						}
+						
+						header_flag=false;
+						 */
+						var mpadv = sortObj[i].mpadv.toString().replace(/,/g, '<br/>');
+						var mradv = sortObj[i].mradv.toString().replace(/,/g, '<br/>');
+						row += '<tr class="shown">'+
+								'<td>'+ sortObj[i].serial_no +'</td>'+
+								'<td>'+ sortObj[i].mcasetype +' '+ sortObj[i].mcaseno+'/'+sortObj[i].mcaseyr+'</td>'+
+								'<td>'+ sortObj[i].pname + '<br/>VS<br/>' + sortObj[i].rname + '</td>'+
+								'<td>'+ mpadv + '</td>'+
+								'<td>'+ mradv + '</td>'+
+						'</tr>';
+						
+						if(Array.isArray(sortObj[i].extra) && sortObj[i].extra.length){
+							//console.log(sortObj[i].extra);
+							for (var j = 0; j < sortObj[i].extra.length; j++) {
+								row += '<tr class="shown">'+
+											'<td> </td>'+
+											'<td>'+sortObj[i].extra[j].excasetype+' '+sortObj[i].extra[j].excaseno+'/'+sortObj[i].extra[j].excaseyr+'</td>'+
+											'<td>'+ sortObj[i].extra[j].expname + '<br/>VS<br/>' + sortObj[i].extra[j].exrname + '</td>'+
+											'<td>'+ sortObj[i].extra[j].expadv + '</td>'+
+											'<td>'+ sortObj[i].extra[j].exradv + '</td>'+										
+										'</tr>';								
+							}
+							
+						}else if(sortObj[i].extra.excasetype!=''){
+							row += '<tr class="shown">'+
+										'<td> </td>'+
+										'<td>'+sortObj[i].extra.excasetype+' '+sortObj[i].extra.excaseno+'/'+sortObj[i].extra.excaseyr+'</td>'+
+										'<td>'+ sortObj[i].extra.expname + '<br/>VS<br/>' + sortObj[i].extra.exrname + '</td>'+
+										'<td>'+ sortObj[i].extra.expadv + '</td>'+
+										'<td>'+ sortObj[i].extra.exradv + '</td>'+										
+									'</tr>';
+						}
+						
+						//header_flag=false;
+					
+					}
+						
+				}				
+				$('#tbl').html(row);			
+            });
+			
+			
+			
+        });
+    </script>
+
+
+</section></body></html>
