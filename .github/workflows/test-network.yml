@@ -1,0 +1,43 @@
+name: Test MHC Connectivity
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show Runner IP
+        run: |
+          curl https://api.ipify.org
+          echo
+
+      - name: Test HTTP
+        run: |
+          curl -v --max-time 20 http://mhc.tn.gov.in || true
+
+      - name: Test HTTPS
+        run: |
+          curl -Iv --max-time 20 https://mhc.tn.gov.in || true
+
+      - name: Test Python Requests
+        run: |
+          python3 - <<EOF
+          import requests
+
+          try:
+              r = requests.get(
+                  "https://mhc.tn.gov.in",
+                  timeout=20,
+                  verify=False
+              )
+
+              print("STATUS:", r.status_code)
+              print(r.text[:500])
+
+          except Exception as e:
+              print(e)
+          EOF
