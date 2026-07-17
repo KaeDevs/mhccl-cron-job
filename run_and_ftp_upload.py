@@ -1,5 +1,5 @@
 """
-Run causelist automation for a given date and upload generated JSONs to an FTP server.
+Run download_api.py for a given date and upload the generated JSONs to an FTP server.
 
 Usage examples (Windows PowerShell):
     # Dry run: show files that would be uploaded
@@ -18,7 +18,11 @@ Environment variables:
 
 Notes:
     - Plain FTP only. FTPS/TLS support has been removed.
-    - The script parses stdout from MainScript.py for lines like "JSON saved to: <path>".
+    - The script parses stdout from download_api.py for lines like "JSON saved to: <path>".
+      (download_api.py now downloads the Madurai + Madras API JSON, transforms it, and
+      writes directly to jsons/mduDD-MM-YYYY.json and jsons/madrDD-MM-YYYY.json in one
+      step -- Selenium, BeautifulSoup, MainScript.py, and run_causelist.py are no longer
+      part of the pipeline.)
     - If none are found, it falls back to scanning API/jsons for files containing the date.
     - Each file upload reconnects/retries automatically if the connection is aborted
       mid-transfer (common with local firewall/AV interference on Windows).
@@ -38,6 +42,9 @@ load_dotenv()
 
 MAX_UPLOAD_RETRIES = 3
 RETRY_DELAY_SECONDS = 3
+
+# Name of the script that downloads + transforms + saves the JSONs.
+DOWNLOAD_SCRIPT_NAME = "download_api.py"
 
 
 def validate_date(date_str: str) -> bool:
@@ -169,9 +176,14 @@ def upload_files(ftp_host: str, ftp_user: str, ftp_pass: str, ftp_debug: bool,
         time.sleep(1)
 
 
-def run_causelist(date_str: str, api_dir: str) -> subprocess.CompletedProcess:
-    """Run run_causelist.py with the given date and return the process."""
-    cmd = [sys.executable, 'run_causelist.py', date_str]
+def run_download_api(date_str: str, api_dir: str) -> subprocess.CompletedProcess:
+    """Run download_api.py with the given date and return the process."""
+    script_path = os.path.join(api_dir, DOWNLOAD_SCRIPT_NAME)
+    if not os.path.isfile(script_path):
+        print(f"❌ Could not find {DOWNLOAD_SCRIPT_NAME} in {api_dir}")
+        sys.exit(5)
+
+    cmd = [sys.executable, DOWNLOAD_SCRIPT_NAME, date_str]
     print(f"Running: {' '.join(cmd)} (cwd={api_dir})")
     proc = subprocess.run(
         cmd,
@@ -189,7 +201,7 @@ def run_causelist(date_str: str, api_dir: str) -> subprocess.CompletedProcess:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Run causelist and upload JSONs via FTP")
+    parser = argparse.ArgumentParser(description="Run download_api.py and upload JSONs via FTP")
     parser.add_argument('date', help="Date in DD-MM-YYYY")
     parser.add_argument(
         '--remote-dir',
@@ -209,10 +221,10 @@ def main():
         sys.exit(1)
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    proc = run_causelist(date_str, script_dir)
+    proc = run_download_api(date_str, script_dir)
 
     if proc.returncode != 0:
-        print("❌ run_causelist.py failed; aborting upload")
+        print("❌ download_api.py failed; aborting upload")
         sys.exit(proc.returncode)
 
     json_paths = parse_json_paths_from_output(proc.stdout, script_dir)
